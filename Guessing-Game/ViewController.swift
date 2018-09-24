@@ -27,16 +27,19 @@ class ViewController: UIViewController {
         """
         Welcome
         to The Guessing Game
-        Please enter a number
-        between 1-100
         """
         
     }
 
     @IBAction func submitTapped(_ sender: Any) {
+        var guess : Int? = nil
+        guess = Int(guessTextField.text!)
+    
+        
     }
     
     @IBAction func restPushed(_ sender: Any) {
+        
     }
 }
 
