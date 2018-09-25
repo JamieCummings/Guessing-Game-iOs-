@@ -7,8 +7,7 @@
 //
 
 import UIKit
-
-class ViewController: UIViewController {
+class GuessingGameViewController: UIViewController {
 
     @IBOutlet weak var attemptsLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
@@ -19,12 +18,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var recordLabel: UILabel!
     
-    var randomNumber = Int(arc4random_uniform(100) + 1)
     
     var attempts = 5
-    
     var playerWins = 0
-    
+    var maxNumber: Int!
+    var randomNumber: Int!
     var playerLosses = 0
     
     
@@ -40,6 +38,8 @@ class ViewController: UIViewController {
         to The Guessing Game
         """
         recordLabel.text = "Player Wins \(playerWins) Player Losses \(playerLosses)"
+        
+        randomNumber = Int.random(in: 0..<maxNumber)
     }
 
     @IBAction func submitTapped(_ sender: Any) {
@@ -103,10 +103,9 @@ class ViewController: UIViewController {
         submitButton.isHidden = false
         guessTextField.isHidden = false
         guessTextField.text = ""
-        randomNumber = Int(arc4random_uniform(100) + 1)
-        
-        
+        randomNumber = Int.random(in: 0..<maxNumber)
     }
+    
 }
 
 
