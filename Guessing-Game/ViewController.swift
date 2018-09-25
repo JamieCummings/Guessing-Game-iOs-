@@ -30,6 +30,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guessTextField.keyboardType = .numberPad
+        guessTextField.clearsOnBeginEditing = true
         // Do any additional setup after loading the view, typically from a nib.
         attemptsLabel.text = "Attempts Remaining: \(attempts)"
         greatingLabel.text =
@@ -41,23 +43,27 @@ class ViewController: UIViewController {
     }
 
     @IBAction func submitTapped(_ sender: Any) {
-        var guess : Int? = nil
-        guess = Int(guessTextField.text!)
         
+        guard let guess = Int(guessTextField.text!) else {
+            return
+        }
+        guessTextField.endEditing(true)
         if guess == randomNumber {
             
             guessStatusLabel.text = "You win! :)"
             guessTextField.isHidden = true
             playerWins += 1
+            recordLabel.text = "Player Wins \(playerWins) Player Losses \(playerLosses)"
             submitButton.isHidden = true
             
-        } else if guess! > 100 || guess! < 1 {
+        } else if guess > 100 || guess < 1 {
             
           guessStatusLabel.text = "Please guess in the range"
             
-        } else if guess! > randomNumber {
+        } else if guess > randomNumber {
             guessStatusLabel.text = "Guess is too high"
             attempts -= 1
+            attemptsLabel.text = "Attempts Remaining: \(attempts)"
             if attempts == 0 {
                 
                 greatingLabel.text = "GAME OVER!"
@@ -66,9 +72,10 @@ class ViewController: UIViewController {
                 guessTextField.isHidden = true
                 
             }
-        } else if guess! < randomNumber {
+        } else if guess < randomNumber {
             guessStatusLabel.text = "Guess is too low"
             attempts -= 1
+            attemptsLabel.text = "Attempts Remaining: \(attempts)"
             if attempts == 0 {
                 
                 greatingLabel.text = "GAME OVER!"
@@ -76,7 +83,7 @@ class ViewController: UIViewController {
                 submitButton.isHidden = true
                 guessTextField.isHidden = true
                 playerLosses += 1
-                
+                recordLabel.text = "Player Wins \(playerWins) Player Losses \(playerLosses)"
             }
         }
     
@@ -90,11 +97,12 @@ class ViewController: UIViewController {
         Welcome
         to The Guessing Game
         """
+        attempts = 5
         attemptsLabel.text = "Attempts Remaining: \(attempts)"
-        guessStatusLabel.text = ""
+        guessStatusLabel.text = " "
         submitButton.isHidden = false
         guessTextField.isHidden = false
-        attempts = 5
+        guessTextField.text = ""
         randomNumber = Int(arc4random_uniform(100) + 1)
         
         
