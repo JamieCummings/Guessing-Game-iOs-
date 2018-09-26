@@ -61,7 +61,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Enter your guess here " borderStyle="roundedRect" placeholder="Please enter a number between 1-100" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tLr-yI-Aq2">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Enter your guess here " borderStyle="roundedRect" placeholder="Enter your guess here " textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tLr-yI-Aq2">
                                 <rect key="frame" x="30" y="370" width="354" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="jro-FL-Rqc"/>

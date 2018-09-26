@@ -66,6 +66,8 @@ class OptionsPage: UIViewController {
         
     }
     @IBAction func colorButtonPress(_ sender: Any) {
+        // func runs when the button to change the background color is pressed
+        // these change the text color when the background color is changed 
         selectedColor = randomColor.randomElement()
         self.view.backgroundColor = selectedColor
         if self.view.backgroundColor == UIColor.white || self.view.backgroundColor == UIColor.yellow || self.view.backgroundColor == UIColor.green {
