@@ -8,9 +8,8 @@
 
 import UIKit
 class GuessingGameViewController: UIViewController {
-
+    
     @IBOutlet weak var attemptsLabel: UILabel!
-    @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var greatingLabel: UILabel!
     @IBOutlet weak var guessTextField: UITextField!
     @IBOutlet weak var guessStatusLabel: UILabel!
@@ -20,33 +19,66 @@ class GuessingGameViewController: UIViewController {
     
     
     var attempts = 5
+    var attemptsMax: Int!
     var playerWins = 0
     var maxNumber: Int!
     var randomNumber: Int!
     var playerLosses = 0
+    var backgroundColor: UIColor!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         guessTextField.keyboardType = .numberPad
+        attempts = attemptsMax
         guessTextField.clearsOnBeginEditing = true
         // Do any additional setup after loading the view, typically from a nib.
         attemptsLabel.text = "Attempts Remaining: \(attempts)"
         greatingLabel.text =
         """
-        Welcome
-        to The Guessing Game
+        The Guessing Game
+        Are you ready?
         """
         recordLabel.text = "Player Wins \(playerWins) Player Losses \(playerLosses)"
+        if let max = maxNumber {
+            randomNumber = Int.random(in: 0..<max)
+        } else {
+            randomNumber = Int(arc4random_uniform(100)) + 1
+        }
         
-        randomNumber = Int.random(in: 0..<maxNumber)
+        guessStatusLabel.isHidden = true
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //Change the background color to the color passed from the other view controller
+        self.view.backgroundColor = backgroundColor ?? UIColor.white
+        
+        if self.view.backgroundColor == UIColor.white || self.view.backgroundColor == UIColor.yellow || self.view.backgroundColor == UIColor.green {
+            attemptsLabel.textColor = UIColor.black
+            greatingLabel.textColor = UIColor.black
+            guessStatusLabel.textColor = UIColor.black
+            recordLabel.textColor = UIColor.black
+            resetButton.tintColor = UIColor.black
+        } else {
+            attemptsLabel.textColor = UIColor.white
+            greatingLabel.textColor = UIColor.white
+            guessStatusLabel.textColor = UIColor.white
+            recordLabel.textColor = UIColor.white
+            resetButton.tintColor = UIColor.white
+            
+        }
+       
+    }
+    
     @IBAction func submitTapped(_ sender: Any) {
         
         guard let guess = Int(guessTextField.text!) else {
             return
         }
+        
+        guessStatusLabel.isHidden = false
         guessTextField.endEditing(true)
         if guess == randomNumber {
             
@@ -56,9 +88,9 @@ class GuessingGameViewController: UIViewController {
             recordLabel.text = "Player Wins \(playerWins) Player Losses \(playerLosses)"
             submitButton.isHidden = true
             
-        } else if guess > 100 || guess < 1 {
+        } else if guess > maxNumber || guess < 1 {
             
-          guessStatusLabel.text = "Please guess in the range"
+            guessStatusLabel.text = "Please guess in the range"
             
         } else if guess > randomNumber {
             guessStatusLabel.text = "Guess is too high"
@@ -86,7 +118,7 @@ class GuessingGameViewController: UIViewController {
                 recordLabel.text = "Player Wins \(playerWins) Player Losses \(playerLosses)"
             }
         }
-    
+        
         
     }
     
@@ -97,13 +129,17 @@ class GuessingGameViewController: UIViewController {
         Welcome
         to The Guessing Game
         """
-        attempts = 5
+        attempts = attemptsMax
         attemptsLabel.text = "Attempts Remaining: \(attempts)"
         guessStatusLabel.text = " "
         submitButton.isHidden = false
         guessTextField.isHidden = false
         guessTextField.text = ""
-        randomNumber = Int.random(in: 0..<maxNumber)
+        if let max = maxNumber {
+            randomNumber = Int.random(in: 0..<max)
+        } else {
+            randomNumber = Int(arc4random_uniform(100)) + 1
+        }
     }
     
 }
