@@ -47,22 +47,9 @@ class OptionsPage: UIViewController {
         
         // viewDidLoad area will show the following info after it is loaded.
         // this area holds the text for the labels and has the hidded bool for a label.
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector(("numberRange:")))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.sliderTapped(gestureRecognizer:)))
         self.numberRange.addGestureRecognizer(tapGestureRecognizer)
         
-        
-        func sliderTapped(gestureRecognizer: UIGestureRecognizer) {
-            //  print("A")
-            
-            let pointTapped: CGPoint = gestureRecognizer.location(in: self.view)
-            
-            let positionOfSlider: CGPoint = numberRange.frame.origin
-            let widthOfSlider: CGFloat = numberRange.frame.size.width
-            let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(numberRange.maximumValue) / widthOfSlider)
-            
-            numberRange.setValue(Float(newValue), animated: true)
-            
-        }
         colorLabel.text = "Press to change background color:"
         welcomeOptPg.text = """
         Welcome!
@@ -76,6 +63,23 @@ class OptionsPage: UIViewController {
        
     }
     
+    @objc func sliderTapped(gestureRecognizer: UIGestureRecognizer) {
+        //  print("A")
+        
+        let pointTapped: CGPoint = gestureRecognizer.location(in: self.view)
+        
+        let positionOfSlider: CGPoint = numberRange.frame.origin
+        let widthOfSlider: CGFloat = numberRange.frame.size.width
+        let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(numberRange.maximumValue) / widthOfSlider)
+        
+        print(newValue)
+        
+        numberRange.setValue(Float(newValue), animated: true)
+        
+    }
+    
+    @IBAction func slidderTapped(_ sender: Any) {
+    }
     @IBAction func rangeSlid(_ sender: UISlider) {
         
         let currentValue = Int(sender.value) * 10
