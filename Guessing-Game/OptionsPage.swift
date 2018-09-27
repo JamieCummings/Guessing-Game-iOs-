@@ -22,6 +22,7 @@ class OptionsPage: UIViewController {
     var randomColor: [UIColor] = [.purple, .orange, .yellow, .green, .gray, .black]
     var selectedColor: UIColor!
     var attempsNumber: Int = 5
+    
     // this is the segue that connects the two screens. allows 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? GuessingGameViewController {
@@ -43,9 +44,25 @@ class OptionsPage: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         // viewDidLoad area will show the following info after it is loaded.
         // this area holds the text for the labels and has the hidded bool for a label.
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector(("numberRange:")))
+        self.numberRange.addGestureRecognizer(tapGestureRecognizer)
         
+        
+        func sliderTapped(gestureRecognizer: UIGestureRecognizer) {
+            //  print("A")
+            
+            let pointTapped: CGPoint = gestureRecognizer.location(in: self.view)
+            
+            let positionOfSlider: CGPoint = numberRange.frame.origin
+            let widthOfSlider: CGFloat = numberRange.frame.size.width
+            let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(numberRange.maximumValue) / widthOfSlider)
+            
+            numberRange.setValue(Float(newValue), animated: true)
+            
+        }
         colorLabel.text = "Press to change background color:"
         welcomeOptPg.text = """
         Welcome!
@@ -55,9 +72,12 @@ class OptionsPage: UIViewController {
         numberRangeLb.text = "Choose max number:"
         showNumber.isHidden = true
         attempsLable.text = "Choose your number of tries:"
+        
+       
     }
     
     @IBAction func rangeSlid(_ sender: UISlider) {
+        
         let currentValue = Int(sender.value) * 10
         selectedNumber = currentValue
         showNumber.isHidden = false

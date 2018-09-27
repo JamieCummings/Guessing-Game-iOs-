@@ -54,7 +54,7 @@ class GuessingGameViewController: UIViewController {
         super.viewDidAppear(animated)
         //Change the background color to the color passed from the other view controller
         self.view.backgroundColor = backgroundColor ?? UIColor.white
-        
+        //this will chage the text color based on the background color
         if self.view.backgroundColor == UIColor.white || self.view.backgroundColor == UIColor.yellow || self.view.backgroundColor == UIColor.green {
             attemptsLabel.textColor = UIColor.black
             greatingLabel.textColor = UIColor.black
@@ -73,7 +73,7 @@ class GuessingGameViewController: UIViewController {
     }
     
     @IBAction func submitTapped(_ sender: Any) {
-        
+        // func that is ran when the submit is tapped
         guard let guess = Int(guessTextField.text!) else {
             return
         }
@@ -123,7 +123,7 @@ class GuessingGameViewController: UIViewController {
     }
     
     @IBAction func resetPushed(_ sender: Any) {
-        
+        // func runs when the reset button is pushed 
         greatingLabel.text =
         """
         Welcome
